@@ -1,0 +1,27 @@
+services:
+  web:
+    image: drupal:9
+    ports:
+      - 8080:80
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles
+      - drupal-themes:/var/www/html/themes
+      - drupal-sites:/var/www/html/sites
+    depends_on:
+      - db
+    restart: always
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: 1234qwer
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  pg-data:
+  drupal-modules:
+  drupal-profiles:
+  drupal-themes:
+  drupal-sites:
